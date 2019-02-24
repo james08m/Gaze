@@ -9,7 +9,10 @@ using namespace std;
 
 int main()
 {
-    cout << Utilities::GetProgramFileName() << endl;
+	cout << Utilities::GetMachineName() << endl;
+	cout << Utilities::GetUsername() << endl;
+    cout << Utilities::GetProgramFilePath() << endl;
+	cout << Utilities::GetSystemDir() << endl;
 	//tool.HideConsole();
 
 	return 0;
