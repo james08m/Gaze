@@ -2,13 +2,15 @@
 // all .cpp files must
 
 #include "pch.h"
+#include "Utilities.h"
 #include <iostream>
 
 using namespace std;
 
 int main()
 {
-    cout << "Gaze Spying tool" << endl; 
+    cout << Utilities::GetProgramFileName() << endl;
+	//tool.HideConsole();
 
 	return 0;
 }
