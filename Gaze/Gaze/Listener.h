@@ -14,14 +14,17 @@ class Listener
 	Clock Timer;
 
 public:
-	// Listener() : Class cunstructor
-	Listener();
+	// Listener(Logger*) : Class cunstructor
+	Listener(Logger* logger);
 
 	// Start() : Start listening
 	void Start();
 
 	// Stop() : Stop listening
 	void Stop();
+
+	// IsListening() : Return Listener status (Listening attribut)
+	bool IsListening() const;
 
 private:
 	// Run() : Listener main loop

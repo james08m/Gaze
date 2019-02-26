@@ -26,5 +26,5 @@ public:
 	string GetLog(string window_name);
 
 	// GetLog(string) : Return all the key log for all window
-	string GetLog()  ;
+	string GetLog();
 };
