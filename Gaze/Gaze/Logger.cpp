@@ -71,7 +71,8 @@ void Logger::SaveMapToFile(string path)
 	// Go through all map log and write it to file
 	for (iter = _Log.begin(); iter != _Log.end(); ++iter)
 	{
-		file << iter->first << ":" << iter->second << endl;
+		file << iter->first << endl;
+		file << iter->second << endl;
 	}
 
 	// Close file
@@ -79,7 +80,24 @@ void Logger::SaveMapToFile(string path)
 }
 
 // LoadMapFromFile(string) : Load file content to map
-void Logger::LoadMapFromFile(string path)
+bool Logger::LoadMapFromFile(string path)
 {
+	ifstream file(path);
 
+	// Make sure file exist
+	if (!file)
+		return false; // Unable to open file
+	else
+	{
+		string window_line;
+		string log_line;
+
+		while (getline(file, window_line))
+		{
+			getline(file, log_line);
+			this->_Log[window_line] = log_line;
+		}
+
+		return true;
+	}
 }

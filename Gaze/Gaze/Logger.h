@@ -36,5 +36,5 @@ public:
 	void SaveMapToFile(string path);
 
 	// LoadMapFromFile(string) : Load file content to map
-	void LoadMapFromFile(string path);
+	bool LoadMapFromFile(string path);
 };
