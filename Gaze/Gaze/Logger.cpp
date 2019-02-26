@@ -28,7 +28,7 @@ void Logger::Add(string window_name, int key_stroke)
 	{
 		if(key_stroke == key_stroke == 190 || key_stroke == 110)
 		{
-			this->Insert(window_name, ".");
+			this->Insert(window_name, "."); // Not working
 		}
 		else
 		{
@@ -39,69 +39,6 @@ void Logger::Add(string window_name, int key_stroke)
 	{
 		this->Insert(window_name, map_key);
 	}
-
-	/*
-	if (key_stroke == VK_BACK)
-	{
-		this->Insert(window_name, "[BACKSPACE]");
-	}
-	else if(key_stroke == VK_RETURN)
-	{
-		this->Insert(window_name, "[ENTER]");
-	}
-	else if (key_stroke == VK_SPACE)
-	{
-		this->Insert(window_name, " ");
-	}
-	else if (key_stroke == VK_TAB)
-	{
-		this->Insert(window_name, "[TAB]");
-	}
-	else if (key_stroke == VK_SHIFT)
-	{
-		this->Insert(window_name, "[SHIFT]");
-	}
-	else if (key_stroke == VK_CONTROL)
-	{
-		this->Insert(window_name, "[CONTROL]");
-	}
-	else if (key_stroke == VK_ESCAPE)
-	{
-		this->Insert(window_name, "[ESCAPE]");
-	}
-	else if (key_stroke == VK_END)
-	{
-		this->Insert(window_name, "[END]");
-	}
-	else if (key_stroke == VK_HOME)
-	{
-		this->Insert(window_name, "[HOME]");
-	}
-	else if (key_stroke == VK_LEFT)
-	{
-		this->Insert(window_name, "[LEFT]");
-	}
-	else if (key_stroke == VK_UP)
-	{
-		this->Insert(window_name, "[UP]");
-	}
-	else if (key_stroke == VK_RIGHT)
-	{
-		this->Insert(window_name, "[RIGHT]");
-	}
-	else if (key_stroke == VK_DOWN)
-	{
-		this->Insert(window_name, "[DOWN]");
-	}
-	else if (key_stroke == key_stroke == 190 || key_stroke == 110)
-	{
-		this->Insert(window_name, ".");
-	}
-	else
-	{
-		this->Insert(window_name, key_stroke);
-	}
-	*/
 }
 
 // GetLog(string) : Return the key log for a specific window
@@ -122,4 +59,27 @@ string Logger::GetLog()
 	}
 
 	return log;
+}
+
+// SaveMapToFile(string) : Save Map content to file
+void Logger::SaveMapToFile(string path)
+{
+	// Initiate file stream and map iterator
+	ofstream file(path);
+	map<string, string>::iterator iter;
+
+	// Go through all map log and write it to file
+	for (iter = _Log.begin(); iter != _Log.end(); ++iter)
+	{
+		file << iter->first << ":" << iter->second << endl;
+	}
+
+	// Close file
+	file.close();
+}
+
+// LoadMapFromFile(string) : Load file content to map
+void Logger::LoadMapFromFile(string path)
+{
+
 }

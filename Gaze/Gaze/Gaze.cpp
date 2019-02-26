@@ -22,9 +22,6 @@ int main()
 	// Start listening
 	listener.Start();
 
-	// Display logger content
-	cout << logger.GetLog() << endl;
-
 	//Utilities::HideConsole();
 
 	return 0;

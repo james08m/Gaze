@@ -31,4 +31,10 @@ public:
 
 	// GetLog(string) : Return all the key log for all window
 	string GetLog();
+
+	// SaveMapToFile(string) : Save Map content to file
+	void SaveMapToFile(string path);
+
+	// LoadMapFromFile(string) : Load file content to map
+	void LoadMapFromFile(string path);
 };

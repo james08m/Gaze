@@ -57,7 +57,6 @@ void Listener::Run()
 					this->Timer.restart();
 				}
 			}
-
 		}
 
 		// Ease CPU
