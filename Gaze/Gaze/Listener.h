@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Logger.h"
-#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include <iostream>
 
 using namespace std;

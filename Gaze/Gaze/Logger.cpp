@@ -6,12 +6,14 @@
 void Logger::Insert(string window_name, string key_input)
 {
 	this->Log[window_name] += key_input;
+	cout << window_name << " : " << this->Log[window_name] << endl;
 }
 
 // Insert(string, int) : Insert into map the key stroke on the window
 void Logger::Insert(string window_name, int key_input)
 {
 	this->Log[window_name] += key_input;
+	cout << window_name << " : " << this->Log[window_name] << endl;
 }
 
 
