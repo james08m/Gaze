@@ -36,7 +36,7 @@ void Logger::Add(string window_name, int key_stroke)
 		}
 	}
 	else
-	{
+	{		
 		this->Insert(window_name, map_key);
 	}
 }

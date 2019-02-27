@@ -24,7 +24,7 @@ public:
 	void Stop();
 
 	// IsListening() : Return Listener status (Listening attribut)
-	bool IsListening() const;
+	bool IsListening();
 
 private:
 	// Run() : Listener main loop
