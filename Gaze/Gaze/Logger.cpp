@@ -1,19 +1,33 @@
 #include "pch.h"
 #include "Logger.h"
 
+// Logger(string) : Constructor of the Logger class
+Logger::Logger(string path)
+{
+	this->SetPath(path);
+}
+
+// Logger(string, bool) : Constructor of the Logger class
+Logger::Logger(string path, bool load)
+{
+	this->SetPath(path);
+
+	if (load)
+		this->LoadMapFromFile();
+}
 
 // Insert(string, string) : Insert into map the key stroke on the window
 void Logger::Insert(string window_name, string key_input)
 {
 	this->_Log[window_name] += key_input;
-	cout << window_name << " : " << this->_Log[window_name] << endl;
+	cout << window_name << " : " << this->_Log[window_name] << endl; // DEBUG
 }
 
 // Insert(string, int) : Insert into map the key stroke on the window
 void Logger::Insert(string window_name, int key_input)
 {
 	this->_Log[window_name] += key_input;
-	cout << window_name << " : " << this->_Log[window_name] << endl;
+	cout << window_name << " : " << this->_Log[window_name] << endl; // DEBUG
 }
 
 
@@ -26,7 +40,7 @@ void Logger::Add(string window_name, int key_stroke)
 	// If key is not mapped
 	if (map_key == "")
 	{
-		if(key_stroke == key_stroke == 190 || key_stroke == 110)
+		if(key_stroke == 190 || key_stroke == 110)
 		{
 			this->Insert(window_name, "."); // Not working
 		}
@@ -61,11 +75,23 @@ string Logger::GetLog()
 	return log;
 }
 
-// SaveMapToFile(string) : Save Map content to file
-void Logger::SaveMapToFile(string path)
+// GetPath() : Return the path to the log file
+string Logger::GetPath() const
+{
+	return this->_Path;
+}
+
+// SetPath(string) :  Set the path of the log file
+void Logger::SetPath(string path)
+{
+	this->_Path = path;
+}
+
+// SaveMapToFile() : Save Map content to file
+void Logger::SaveMapToFile()
 {
 	// Initiate file stream and map iterator
-	ofstream file(path);
+	ofstream file(this->_Path);
 	map<string, string>::iterator iter;
 
 	// Go through all map log and write it to file
@@ -79,10 +105,10 @@ void Logger::SaveMapToFile(string path)
 	file.close();
 }
 
-// LoadMapFromFile(string) : Load file content to map
-bool Logger::LoadMapFromFile(string path)
+// LoadMapFromFile() : Load file content to map
+bool Logger::LoadMapFromFile()
 {
-	ifstream file(path);
+	ifstream file(this->_Path);
 
 	// Make sure file exist
 	if (!file)
@@ -92,10 +118,11 @@ bool Logger::LoadMapFromFile(string path)
 		string window_line;
 		string log_line;
 
-		while (getline(file, window_line))
+		// Getline while not at end of file
+		while (getline(file, window_line)) // Even line = window name
 		{
-			getline(file, log_line);
-			this->_Log[window_line] = log_line;
+			getline(file, log_line); // Odd line = log entre of previous even line (window name)
+			this->_Log[window_line] = log_line; // Add file entrees to map log
 		}
 
 		return true;

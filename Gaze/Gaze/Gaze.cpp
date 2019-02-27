@@ -10,10 +10,10 @@ using namespace std;
 int main()
 {
 	// Start logger and listener
-	Logger logger;
+	Logger logger("test.log");
 	Listener listener(&logger);
 	
-	logger.LoadMapFromFile("test.log");
+	logger.LoadMapFromFile();
 
 	cout << logger.GetLog() << endl;
 
@@ -22,7 +22,7 @@ int main()
 
 	cout << "EXITING!" << endl;
 
-	logger.SaveMapToFile("test.log");
+	logger.SaveMapToFile();
 
 	//Utilities::HideConsole();
 	return 0;
