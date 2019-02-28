@@ -125,6 +125,7 @@ bool Logger::LoadMapFromFile()
 			this->Log[window_line] = log_line; // Add file entrees to map log
 		}
 
+		file.close();
 		return true;
 	}
 }
