@@ -19,15 +19,15 @@ Logger::Logger(string path, bool load)
 // Insert(string, string) : Insert into map the key stroke on the window
 void Logger::Insert(string window_name, string key_input)
 {
-	this->_Log[window_name] += key_input;
-	cout << window_name << " : " << this->_Log[window_name] << endl; // DEBUG
+	this->Log[window_name] += key_input;
+	cout << window_name << " : " << this->Log[window_name] << endl; // DEBUG
 }
 
 // Insert(string, int) : Insert into map the key stroke on the window
 void Logger::Insert(string window_name, int key_input)
 {
-	this->_Log[window_name] += key_input;
-	cout << window_name << " : " << this->_Log[window_name] << endl; // DEBUG
+	this->Log[window_name] += key_input;
+	cout << window_name << " : " << this->Log[window_name] << endl; // DEBUG
 }
 
 
@@ -35,7 +35,7 @@ void Logger::Insert(string window_name, int key_input)
 void Logger::Add(string window_name, int key_stroke)
 {
 	// Check if key stroke is mapped if not map_key == "" 
-	string map_key = _Keys.Map[key_stroke];
+	string map_key = Keys.Map[key_stroke];
 
 	// If key is not mapped
 	if (map_key == "")
@@ -58,7 +58,7 @@ void Logger::Add(string window_name, int key_stroke)
 // GetLog(string) : Return the key log for a specific window
 string Logger::GetLog(string window_name) 
 {
-	return this->_Log.find(window_name)->second;
+	return this->Log.find(window_name)->second;
 }
 
 // GetLog(string) : Return all the key log for all window
@@ -67,7 +67,7 @@ string Logger::GetLog()
 	string log = "";
 
 	// Go through all the log
-	for (map<string, string>::iterator iter = _Log.begin(); iter != _Log.end(); ++iter)
+	for (map<string, string>::iterator iter = Log.begin(); iter != Log.end(); ++iter)
 	{
 		log += iter->first + " > " + iter->second;
 	}
@@ -78,24 +78,24 @@ string Logger::GetLog()
 // GetPath() : Return the path to the log file
 string Logger::GetPath() const
 {
-	return this->_Path;
+	return this->Path;
 }
 
 // SetPath(string) :  Set the path of the log file
 void Logger::SetPath(string path)
 {
-	this->_Path = path;
+	this->Path = path;
 }
 
 // SaveMapToFile() : Save Map content to file
 void Logger::SaveMapToFile()
 {
 	// Initiate file stream and map iterator
-	ofstream file(this->_Path);
+	ofstream file(this->Path);
 	map<string, string>::iterator iter;
 
 	// Go through all map log and write it to file
-	for (iter = _Log.begin(); iter != _Log.end(); ++iter)
+	for (iter = Log.begin(); iter != Log.end(); ++iter)
 	{
 		file << iter->first << endl;
 		file << iter->second << endl;
@@ -108,7 +108,7 @@ void Logger::SaveMapToFile()
 // LoadMapFromFile() : Load file content to map
 bool Logger::LoadMapFromFile()
 {
-	ifstream file(this->_Path);
+	ifstream file(this->Path);
 
 	// Make sure file exist
 	if (!file)
@@ -122,7 +122,7 @@ bool Logger::LoadMapFromFile()
 		while (getline(file, window_line)) // Even line = window name
 		{
 			getline(file, log_line); // Odd line = log entre of previous even line (window name)
-			this->_Log[window_line] = log_line; // Add file entrees to map log
+			this->Log[window_line] = log_line; // Add file entrees to map log
 		}
 
 		return true;

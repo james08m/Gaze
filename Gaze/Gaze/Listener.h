@@ -9,8 +9,12 @@ using namespace sf;
 
 class Listener
 {
+	// Holding the lister status (true if listening)
 	bool Listening;
+	// Point to the log where all keys are stored.
 	Logger* Log;
+
+	// Timer attribut used to manage time between duplicate key pressed
 	Clock Timer;
 
 public:
@@ -29,5 +33,4 @@ public:
 private:
 	// Run() : Listener main loop
 	void Run();
-
 };

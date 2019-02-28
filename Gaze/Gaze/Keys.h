@@ -7,7 +7,6 @@ using namespace std;
 class Keys
 {
 public:
-
 	map<int, string> Map = {
 	{ VK_ADD, "[Numpad +]" },
 	{ VK_ATTN, "[Attn]" },
