@@ -45,7 +45,7 @@ void Listener::Run()
 			if (GetAsyncKeyState(key) == -32767) // save keyboard entree
 			{
 				// Prevent to add to many times a pressed and holded key
-				if (key == last_key && this->Timer.getElapsedTime() <= milliseconds(90))
+				if (key == last_key && this->Timer.getElapsedTime() <= milliseconds(50))
 				{
 					last_key = key;
 				}
