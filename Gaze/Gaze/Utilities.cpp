@@ -38,8 +38,8 @@ string Utilities::GetUsername()
 string Utilities::GetActiveWindow()
 {
 	char buffer[256];
-	GetWindowText(GetForegroundWindow(), buffer, sizeof(buffer));
-
+	if(!GetWindowText(GetForegroundWindow(), buffer, sizeof(buffer)))
+		return "0"; // Failed to retrive window text
 	return buffer;
 }
 
@@ -47,7 +47,8 @@ string Utilities::GetActiveWindow()
 string Utilities::GetSystemDir()
 {
 	char buffer[256];
-	GetSystemDirectory(buffer, sizeof(buffer));
+	if (!GetSystemDirectory(buffer, sizeof(buffer)))
+		return "0"; // Failed to retrive system directory path
 
 	return buffer;
 }
@@ -74,6 +75,7 @@ string Utilities::GetCurrentDate()
 	tm *tm_struct = localtime(&now); // Format timestamp into a tm_struct
 	char buffer[80];
 
+	// http://en.cppreference.com/w/cpp/chrono/c/strftime
 	strftime(buffer, sizeof(buffer), "%Y-%m-%d", tm_struct);
 
 	return buffer;
@@ -86,6 +88,7 @@ string Utilities::GetTime()
 	tm *tm_struct = localtime(&now); // Format timestamp into a tm_struct
 	char buffer[80];
 
+	// http://en.cppreference.com/w/cpp/chrono/c/strftime
 	strftime(buffer, sizeof(buffer), "%X", tm_struct);
 
 	return buffer;

