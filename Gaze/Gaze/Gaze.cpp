@@ -13,6 +13,7 @@ int main()
 	Logger logger;
 	Listener listener(&logger);
 
+	// Test Utilities static methods
 	cout << Utilities::GetCurrentDate() << endl;
 	cout << Utilities::GetTime() << endl;
 	cout << Utilities::GetActiveWindow() << endl;
