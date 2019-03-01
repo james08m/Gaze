@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <ctime>
+#include <time.h>
 #include <Windows.h>
 #include <WinUser.h>
 #include <lmcons.h>
@@ -31,6 +33,12 @@ public:
 
 	// GetProgramFilePath() : Return the program file path
 	static string GetProgramFilePath();
+
+	// GetCurrentDate() :  Return the current date in a string 
+	static string GetCurrentDate();
+
+	// GetTime() : Return the current time in a string
+	static string GetTime();
 
 	// HideConsole() : Hide the program console window
 	static void HideConsole();

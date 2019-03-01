@@ -12,6 +12,9 @@ int main()
 	// Start logger and listener
 	Logger logger("test.log");
 	Listener listener(&logger);
+
+	cout << Utilities::GetCurrentDate() << endl;
+	cout << Utilities::GetTime() << endl;
 	
 	logger.LoadMapFromFile();
 

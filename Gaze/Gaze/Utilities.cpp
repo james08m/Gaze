@@ -67,6 +67,30 @@ string Utilities::GetProgramFilePath()
 	return buffer;
 }
 
+// GetCurrentDate() :  Return the current date in a string format
+string Utilities::GetCurrentDate()
+{
+	time_t now = time(0); // Get actual timestamp
+	tm *tm_struct = localtime(&now); // Format timestamp into a tm_struct
+	char buffer[80];
+
+	strftime(buffer, sizeof(buffer), "%Y-%m-%d", tm_struct);
+
+	return buffer;
+}
+
+// GetTime() : Return the current time in a string
+string Utilities::GetTime()
+{
+	time_t now = time(0); // Get actual timestamp
+	tm *tm_struct = localtime(&now); // Format timestamp into a tm_struct
+	char buffer[80];
+
+	strftime(buffer, sizeof(buffer), "%X", tm_struct);
+
+	return buffer;
+}
+
 // HideConsole() : Hide the program console window
 void Utilities::HideConsole()
 {
