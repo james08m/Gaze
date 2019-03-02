@@ -46,9 +46,9 @@ public:
 	// SetDate(string) :  Set the dare of the log
 	void SetDate(string date);
 
-	// SaveMapToFile() : Save Map content to file
-	void SaveMapToFile();
+	// SaveToFile() : Save Map content to file
+	void SaveToFile();
 
-	// LoadMapFromFile() : Load file content to map
-	bool LoadMapFromFile();
+	// LoadFromFile() : Load file content to map
+	bool LoadFromFile();
 };

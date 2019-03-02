@@ -56,7 +56,7 @@ void Logger::UpdateLog()
 	if (this->GetDate() != Utilities::GetCurrentDate())
 	{
 		// Save log to file with the old date as file name
-		this->SaveMapToFile();
+		this->SaveToFile();
 
 		// Clear map log
 		this->Log.clear();
@@ -98,8 +98,8 @@ void Logger::SetDate(string date)
 	this->Date = date;
 }
 
-// SaveMapToFile() : Save Map content to file
-void Logger::SaveMapToFile()
+// SaveToFile() : Save Map content to file
+void Logger::SaveToFile()
 {
 	// Initiate file stream and map iterator
 	ofstream file(this->Date + ".log");
@@ -116,8 +116,8 @@ void Logger::SaveMapToFile()
 	file.close();
 }
 
-// LoadMapFromFile() : Load file content to map
-bool Logger::LoadMapFromFile()
+// LoadFromFile() : Load file content to map
+bool Logger::LoadFromFile()
 {
 	ifstream file(this->Date + ".log");
 

