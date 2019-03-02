@@ -5,9 +5,11 @@
 #include "Keys.h"
 #include <fstream>
 #include <sstream>
-#include <map>  
+#include <map>
 
 using namespace sf;
+
+const Time TIME_SAVE_LOG = seconds(40);
 
 class Logger
 {

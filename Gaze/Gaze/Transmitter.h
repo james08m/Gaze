@@ -7,7 +7,7 @@
 using namespace std;
 using namespace sf;
 
-const Time WAITING_TIME = seconds(30);
+const Time TIME_TRANSMISSION = seconds(30);
 const string WEB_SERVER = "google.com";
 const string WEB_PAGE = "/";
 

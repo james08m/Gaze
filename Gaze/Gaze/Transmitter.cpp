@@ -17,12 +17,13 @@ Transmitter::Transmitter(Logger* logger)
 void Transmitter::Start()
 {
 	this->Transmitting = true;
+	cout << "Transmitter started" << endl;
 
 	// Keep transmiting while transmitting is set to true
 	while (this->IsTransmitting())
 	{
 		// If elapsed time is >= Waiting time constant defined in Transmitter.h
-		if (Timer.getElapsedTime() >= WAITING_TIME)
+		if (Timer.getElapsedTime() >= TIME_TRANSMISSION)
 		{
 			// Initialize the http object and request
 			Http http(WEB_SERVER);
@@ -59,6 +60,7 @@ void Transmitter::Start()
 			this->LastTransmission = Utilities::GetCurrentDate();
 		}
 	}
+	cout << "Transmitter stoped" << endl;
 }
 
 // Stop() : Stop the transmitter 

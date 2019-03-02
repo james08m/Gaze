@@ -26,9 +26,6 @@ void Logger::Insert(string window_name, int key_input)
 // Add(string, int) : Add key stroke and the window name to Logger
 void Logger::Add(string window_name, int key_stroke)
 {
-	// Make sure log is up to date befre adding anything
-	this->Update();
-
 	// Check if key stroke is mapped if not map_key == "" 
 	string map_key = Keys.Map[key_stroke];
 
@@ -53,22 +50,30 @@ void Logger::Add(string window_name, int key_stroke)
 // Update() : Update the log date and save and clean log when date change
 void Logger::Update()
 {
-	//
-	if (this->Timer.getElapsedTime() >= seconds(60*10))
+	cout << "Logger updater started" << endl;
+	while (this->GetActive())
 	{
-		// Save log to file with the old date as file name
-		this->SaveToFile();
-
-		// If current date is different than log date
-		if (this->GetDate() != Utilities::GetCurrentDate())
+		// If time elapsed is >= to time waited before saving log
+		if (this->Timer.getElapsedTime() >= TIME_SAVE_LOG)
 		{
-			// Clear map log
-			this->Log.clear();
+			// Save log to file with the old date as file name
+			this->SaveToFile();
+			cout << "Log saved to file" << endl;
 
-			// Update the log date
-			this->SetDate(Utilities::GetCurrentDate());
+			// If current date is different than log date
+			if (this->GetDate() != Utilities::GetCurrentDate())
+			{
+				// Clear map log
+				this->Log.clear();
+
+				// Update the log date
+				this->SetDate(Utilities::GetCurrentDate());
+			}
+
+			this->Timer.restart();
 		}
 	}
+	cout << "Logger updater stoped" << endl;
 }
 
 // SaveToFile() : Save Map content to file
