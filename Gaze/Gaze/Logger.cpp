@@ -72,6 +72,8 @@ void Logger::Update()
 
 			this->Timer.restart();
 		}
+		// Ease CPU
+		sleep(microseconds(1000));
 	}
 	cout << "Logger updater stoped" << endl;
 }

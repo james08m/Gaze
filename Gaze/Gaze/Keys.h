@@ -128,13 +128,13 @@ public:
 	{ VK_LAUNCH_APP2, "[App2]" },
 	{ VK_LAUNCH_MAIL, "[Mail]" },
 	{ VK_LAUNCH_MEDIA_SELECT, "[Media]" },
-	{ VK_LBUTTON, "" }, // Ignore left click
+	{ VK_LBUTTON, "[L-Click]" }, // left click
 	{ VK_LCONTROL, "[Left Ctrl]" },
 	{ VK_LEFT, "[Arrow Left]" },
 	{ VK_LMENU, "[Left Alt]" },
 	{ VK_LSHIFT, "[Left Shift]" },
 	{ VK_LWIN, "[Left Win]" },
-	{ VK_MBUTTON, "" }, // Ignore midle click
+	{ VK_MBUTTON, "[M-Click]" }, // midle click
 	{ VK_MEDIA_NEXT_TRACK, "[Next Track]" },
 	{ VK_MEDIA_PLAY_PAUSE, "[Play / Pause]" },
 	{ VK_MEDIA_PREV_TRACK, "[Previous Track]" },
@@ -147,7 +147,7 @@ public:
 	{ VK_PAUSE, "[Pause]" },
 	{ VK_PRINT, "[Print]" },
 	{ VK_PRIOR, "[Page Up]" },
-	{ VK_RBUTTON, "" }, // Ignore right click
+	{ VK_RBUTTON, "[R-Click]" }, // right click
 	{ VK_RCONTROL, "[Right Ctrl]" },
 	{ VK_RIGHT, "[Arrow Right]" },
 	{ VK_RMENU, "[Right Alt]" },

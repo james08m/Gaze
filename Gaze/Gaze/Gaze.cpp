@@ -37,8 +37,9 @@ int main()
 	// If F1 pressed
 	cout << "EXITING!" << endl;
 
-	// Stop thread
+	// Stop threads
 	transmitter.Stop();
+	logger.SetActive(false);
 
 	// Save log to file
 	logger.SaveToFile();

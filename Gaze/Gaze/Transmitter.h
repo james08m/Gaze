@@ -7,8 +7,9 @@
 using namespace std;
 using namespace sf;
 
-const Time TIME_TRANSMISSION = seconds(30);
-const string WEB_SERVER = "google.com";
+const Time TIME_TRANSMISSION = seconds(60*10); // Every 10 minutes
+const string SERVER_ADDRESS = "192.168.10.200";
+const int SERVER_PORT = 21;
 const string WEB_PAGE = "/";
 
 
@@ -46,6 +47,9 @@ public:
 
 	// Stop() : Stop the transmitter 
 	void Stop();
+
+	//Http();
+	void http();
 
 	// IsTransmitting() : Return Transmitting value
 	bool IsTransmitting() const;

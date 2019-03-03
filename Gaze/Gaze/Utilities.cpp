@@ -38,6 +38,7 @@ string Utilities::GetUsername()
 string Utilities::GetActiveWindow()
 {
 	char buffer[256];
+	
 	if(!GetWindowText(GetForegroundWindow(), buffer, sizeof(buffer)))
 		return "0"; // Failed to retrive window text
 	return buffer;
