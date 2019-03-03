@@ -16,6 +16,18 @@ Transmitter::Transmitter(Logger* logger)
 // Start() : Start sending log to server (ment to be lunch in a thread)
 void Transmitter::Start()
 {
+	this->ftp();
+}
+
+// Stop() : Stop the transmitter 
+void Transmitter::Stop()
+{
+	this->Transmitting = false;
+}
+
+// Ftp();
+void Transmitter::ftp()
+{
 	this->Transmitting = true;
 	cout << "FTP Transmitter Started" << endl;
 
@@ -27,16 +39,15 @@ void Transmitter::Start()
 		{
 			// Initialize the ftp object 
 			Ftp ftp;
-
 			// Connect and login to server
 			Ftp::Response response_connect = ftp.connect(SERVER_ADDRESS, SERVER_PORT);
 			Ftp::Response response_login = ftp.login("pi", "8Mj3Rn2Mm!"); // FTP server configured to accept anonymous connexion
-			cout <<"[CONNECT] " << response_connect.getMessage() << endl << "[ LOGIN ] " << response_login.getMessage() << endl;
+			cout << "[CONNECT] " << response_connect.getMessage() << endl << "[ LOGIN ] " << response_login.getMessage() << endl;
 
 			Ftp::Response response_dir = ftp.createDirectory(Utilities::GetMachineName());
 			cout << "[CRT DIR] " << response_dir.getMessage() << endl;
-			
-			Ftp::Response response_upload = ftp.upload(Utilities::GetCurrentDate() + ".log", Utilities::GetMachineName()+"/");
+
+			Ftp::Response response_upload = ftp.upload(Utilities::GetCurrentDate() + ".log", Utilities::GetMachineName() + "/");
 			cout << " [UPLOAD] " << response_upload.getMessage() << endl;
 
 			// Disconnect from the FTP server
@@ -53,13 +64,7 @@ void Transmitter::Start()
 	cout << "FTP Transmitter Stopped" << endl;
 }
 
-// Stop() : Stop the transmitter 
-void Transmitter::Stop()
-{
-	this->Transmitting = false;
-}
-
-//Http();
+// Http();
 void Transmitter::http()
 {
 	this->Transmitting = true;
@@ -107,6 +112,8 @@ void Transmitter::http()
 			this->Timer.restart();
 			this->LastTransmission = Utilities::GetCurrentDate();
 		}
+		// Ease CPU
+		sleep(microseconds(1000));
 	}
 	cout << "HTTP Transmitter Stopped" << endl;
 }

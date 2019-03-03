@@ -48,7 +48,10 @@ public:
 	// Stop() : Stop the transmitter 
 	void Stop();
 
-	//Http();
+	// Ftp()
+	void ftp();
+
+	// Http();
 	void http();
 
 	// IsTransmitting() : Return Transmitting value
