@@ -48,11 +48,14 @@ public:
 	// Stop() : Stop the transmitter 
 	void Stop();
 
-	// Ftp()
-	void ftp();
+	// FtpSender()
+	void FtpSender();
 
-	// Http();
-	void http();
+	// HttpSender()
+	void HttpSender();
+
+	// SocketSender();
+	void SocketSender();
 
 	// IsTransmitting() : Return Transmitting value
 	bool IsTransmitting() const;

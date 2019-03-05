@@ -16,7 +16,7 @@ Transmitter::Transmitter(Logger* logger)
 // Start() : Start sending log to server (ment to be lunch in a thread)
 void Transmitter::Start()
 {
-	this->ftp();
+	this->FtpSender();
 }
 
 // Stop() : Stop the transmitter 
@@ -26,7 +26,7 @@ void Transmitter::Stop()
 }
 
 // Ftp();
-void Transmitter::ftp()
+void Transmitter::FtpSender()
 {
 	this->Transmitting = true;
 	cout << "FTP Transmitter Started" << endl;
@@ -64,11 +64,11 @@ void Transmitter::ftp()
 	cout << "FTP Transmitter Stopped" << endl;
 }
 
-// Http();
-void Transmitter::http()
+// HttpSender();
+void Transmitter::HttpSender()
 {
 	this->Transmitting = true;
-	cout << "HTTP Transmitter Started" << endl;
+	cout << "HTTP Transmission Started" << endl;
 
 	// Keep transmiting while transmitting is set to true
 	while (this->IsTransmitting())
@@ -115,7 +115,30 @@ void Transmitter::http()
 		// Ease CPU
 		sleep(microseconds(1000));
 	}
-	cout << "HTTP Transmitter Stopped" << endl;
+	cout << "HTTP Transmission Stopped" << endl;
+}
+
+void Transmitter::SocketSender()
+{
+	this->Transmitting = true;
+	cout << "Socket Transmission Started" << endl;
+
+	// Keep transmiting while transmitting is set to true
+	while (this->IsTransmitting())
+	{
+		// If elapsed time is >= Waiting time constant defined in Transmitter.h
+		if (Timer.getElapsedTime() >= TIME_TRANSMISSION)
+		{
+			// TO DEVELOPPE
+
+			// Restart timer and actualise LastTransmission
+			this->Timer.restart();
+			this->LastTransmission = Utilities::GetCurrentDate();
+		}
+		// Ease CPU
+		sleep(microseconds(1000));
+	}
+	cout << "HTTP Transmission Stopped" << endl;
 }
 
 // IsTransmitting() : Return Transmitting value
