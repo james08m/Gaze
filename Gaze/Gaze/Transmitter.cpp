@@ -87,6 +87,7 @@ void Transmitter::HttpSender()
 			// Open the currently active log file
 			ifstream file(Utilities::GetCurrentDate() + ".log");
 
+
 			// Getline by line file content
 			string line;
 			string content = "";
@@ -129,9 +130,32 @@ void Transmitter::SocketSender()
 		// If elapsed time is >= Waiting time constant defined in Transmitter.h
 		if (Timer.getElapsedTime() >= TIME_TRANSMISSION)
 		{
-			// TO DEVELOPPE
+			// Not tested
+			TcpSocket socket;
+			Socket::Status status = socket.connect(SERVER_ADDRESS, SERVER_PORT);
 
-			// Restart timer and actualise LastTransmission
+			// If connection to server failed 
+			if (status != Socket::Done)
+			{
+				cout << "Tcp Socket failed to connect.." << endl;
+				break;
+			}
+
+			ifstream file(Utilities::GetCurrentDate() + ".log");
+			char buffer[4096];
+
+
+			// Loop through file 
+			while (file.read(buffer, sizeof(buffer)))
+			{
+				// Send buffer content 
+				socket.send(buffer, sizeof(buffer));
+			}
+
+			// Close file properly
+			file.close();
+
+			// Restart timer and uptade LastTransmission
 			this->Timer.restart();
 			this->LastTransmission = Utilities::GetCurrentDate();
 		}
