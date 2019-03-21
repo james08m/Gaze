@@ -10,6 +10,13 @@ using namespace std;
 
 int main()
 {
+	string s = "salut";
+	cout << s << endl;
+
+	string encrypt = Utilities::CaesarCypherEncrypt(s, 300);
+	Utilities::CaesarCypherDecrypt(encrypt, 300);
+	
+	/*
 	// Start logger and listener
 	Logger logger;
 	Listener listener(&logger);
@@ -43,6 +50,6 @@ int main()
 
 	// Save log to file
 	logger.SaveToFile();
-
+	*/
 	return 0;
 }

@@ -7,7 +7,7 @@
 using namespace std;
 using namespace sf;
 
-const Time TIME_TRANSMISSION = seconds(60*10); // Every 10 minutes
+const Time TIME_TRANSMISSION = seconds(60*2); // Every 2 minutes
 const string SERVER_ADDRESS = "192.168.10.200";
 const int SERVER_PORT = 21;
 const string WEB_PAGE = "/";

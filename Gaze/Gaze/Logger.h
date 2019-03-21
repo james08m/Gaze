@@ -9,7 +9,7 @@
 
 using namespace sf;
 
-const Time TIME_SAVE_LOG = seconds(60*5); // Every 5 minutes
+const Time TIME_SAVE_LOG = seconds(60*1); // Every 1 minute
 
 class Logger
 {

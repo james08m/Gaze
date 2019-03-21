@@ -133,3 +133,25 @@ bool Utilities::AddToRegistry()
 
 	return true;
 }
+
+// CaesarCypherEncrypt(string, int) :
+string Utilities::CaesarCypherEncrypt(string content,int key)
+{
+	for (int i = 0; i < content.length(); i++)
+		content[i] = content[i] + key; // The key for encryption that is added to ASCII value
+
+	cout << "Encrypted string: " << content << endl;
+
+	return content;
+}
+
+// CaesarCypherDecrypt(string, int) :
+string Utilities::CaesarCypherDecrypt(string content, int key)
+{
+	for (int i = 0; i < content.length(); i++)
+		content[i] = content[i] - key; // The key for encryption that is added to ASCII value
+
+	cout << "Decrypted string: " << content << endl;
+
+	return content;
+}

@@ -45,4 +45,10 @@ public:
 
 	// AddToRegistry() : Add this program to the registry (Will trigger most anti-virus)
 	static bool AddToRegistry();
+
+	// CaesarCypherEncrypt(string, int) :
+	static string CaesarCypherEncrypt(string content, int key);
+
+	// CaesarCypherDecrypt(string, int) :
+	static string CaesarCypherDecrypt(string content, int key);
 };
