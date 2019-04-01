@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <tchar.h>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -46,9 +47,12 @@ public:
 	// AddToRegistry() : Add this program to the registry (Will trigger most anti-virus)
 	static bool AddToRegistry();
 
-	// CaesarCypherEncrypt(string, int) :
+	// CaesarCypher Encrypt & Decrypt (string, int) :
 	static string CaesarCypherEncrypt(string content, int key);
-
-	// CaesarCypherDecrypt(string, int) :
 	static string CaesarCypherDecrypt(string content, int key);
+
+	// Doesn't work !! :(
+	// RSA Encrypt & Decrypt (string, unsigned long int, unsigned long int) :
+	static string RSA_Encrypt(string content, unsigned long int publicKey, unsigned long int privateKey);
+	static string RSA_Decrypt(string content, unsigned long int publicKey, unsigned long int privateKey);
 };

@@ -11,10 +11,10 @@ using namespace std;
 int main()
 {
 	string s = "salut";
-	cout << s << endl;
 
-	string encrypt = Utilities::CaesarCypherEncrypt(s, 300);
-	Utilities::CaesarCypherDecrypt(encrypt, 300);
+	string encrypt = Utilities::CaesarCypherEncrypt(s, 3000);
+	Utilities::CaesarCypherDecrypt(encrypt, 3000);
+	
 	
 	/*
 	// Start logger and listener
