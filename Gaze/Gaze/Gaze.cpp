@@ -41,7 +41,7 @@ int main()
 
 	// Stop threads
 	transmitter.Stop();
-	logger.SetActive(false);
+	logger.Stop();
 
 	// Save log to file
 	logger.SaveToFile();

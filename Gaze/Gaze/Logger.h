@@ -39,6 +39,9 @@ public:
 	// Logger() : Constructor of the Logger class
 	Logger();
 
+	// Stop() : Set logger to inactive causing the Update() loop to stop
+	void Stop();
+
 	// Add(string, int) : Add key stroke and the window name to Logger
 	void Add(string window_name, int key_stroke);
 
