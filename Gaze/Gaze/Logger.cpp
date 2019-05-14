@@ -56,7 +56,7 @@ void Logger::Add(string window_name, int key_stroke)
 // Update() : Update the log date and save and clean log when date change
 void Logger::Update()
 {
-	cout << "Logger updater started" << endl;
+	cout << "Logger started" << endl;
 	while (this->GetActive())
 	{
 		// If time elapsed is >= to time waited before saving log
@@ -81,7 +81,7 @@ void Logger::Update()
 		// Ease CPU
 		sleep(microseconds(1000));
 	}
-	cout << "Logger updater stoped" << endl;
+	cout << "Logger stopped" << endl;
 }
 
 // SaveToFile() : Save Map content to file

